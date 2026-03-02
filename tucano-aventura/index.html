@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tucano Aventura - O Jogo</title>
+    <meta name="description"
+        content="Bem-vindo ao Tucano Aventura! Desvie dos obstáculos, alcance a maior pontuação em cenários vibrantes desde florestas até o modo cyber neon.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --surface-color: #1f2833;
+            --primary-color: #66fcf1;
+            --secondary-color: #45a29e;
+            --text-color: #c5c6c7;
+            --text-light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: rgba(31, 40, 51, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+            animation: pulse 2s infinite ease-in-out;
+            object-fit: cover;
+        }
+
+        .logo-title {
+            color: var(--text-light);
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--primary-color), var(--text-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 150px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(69, 162, 158, 0.15) 0%, rgba(11, 12, 16, 0) 70%);
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            max-width: 900px;
+            line-height: 1.1;
+            padding: 0 20px;
+        }
+
+        .hero-title span {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.5);
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-title span:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            opacity: 0.9;
+        }
+
+        .feature-graphic {
+            width: 90%;
+            max-width: 1024px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(102, 252, 241, 0.15);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 20px;
+        }
+
+        .feature-graphic:hover {
+            transform: translateY(-15px) scale(1.02);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            background: linear-gradient(180deg, var(--bg-color) 0%, var(--surface-color) 100%);
+        }
+
+        .about-content {
+            flex: 1;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Screenshots Gallery */
+        .gallery {
+            padding: 100px 5%;
+            text-align: center;
+            background-color: var(--surface-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .screenshot-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            aspect-ratio: 9/16;
+        }
+
+        .screenshot-card:hover {
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 252, 241, 0.3);
+            z-index: 10;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px 20px;
+            background: linear-gradient(to top, rgba(11, 12, 16, 0.95), rgba(11, 12, 16, 0.7) 60%, transparent);
+            color: var(--text-light);
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(20px);
+        }
+
+        .screenshot-card:hover .screenshot-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .screenshot-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-color);
+            padding: 60px 5% 40px;
+            text-align: center;
+            border-top: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: var(--bg-color);
+            padding: 18px 45px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 252, 241, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(102, 252, 241, 0.6);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.4);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(102, 252, 241, 0.7);
+            }
+
+            100% {
+                box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .about {
+                padding: 60px 20px;
+            }
+
+            .gallery {
+                padding: 60px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="app_icon.png" alt="Tucano Aventura Icon" class="logo-img">
+            <div class="logo-title">Tucano Aventura</div>
+        </div>
+        <nav class="nav-links">
+            <a href="#sobre">Sobre o Jogo</a>
+            <a href="#galeria">Galeria</a>
+            <a href="privacy_policy.html">Privacidade</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1 class="hero-title">Aventura Épica em <span>Neon e Natureza</span></h1>
+        <p class="hero-subtitle">Desvie dos obstáculos, desafie a gravidade e alcance novos recordes em cenários
+            incríveis. Jogue agora o Tucano Aventura!</p>
+        <a href="#download" class="download-btn">Jogar Grátis</a>
+        <img src="feature_graphic.png" alt="Tucano Aventura Gameplay" class="feature-graphic" loading="lazy">
+    </section>
+
+    <section id="sobre" class="about">
+        <div class="about-content">
+            <h2 class="section-title">A Maior Aventura no Céu</h2>
+            <br>
+            <p class="about-text">
+                Prepare-se para entrar em uma frenética jornada com o <strong>Tucano Aventura</strong>. Nesta dinâmica
+                viagem, você controla um tucano destemido por diversos mundos, precisando de reflexos rápidos para
+                desviar de tudo que aparecer na tela!
+            </p>
+            <p class="about-text">
+                Como todo bom jogo arcade casual, sua rapidez vai ser testada à medida que a velocidade da fase aumenta
+                e o ambiente evolui, de florestas verdes tropicais até chegar ao puro êxtase no modo <strong>CYBER
+                    NEON</strong>.
+            </p>
+            <p class="about-text">
+                Os gráficos são vibrantes, a jogabilidade flui perfeita em 60fps e a trilha sonora vai te manter sempre
+                na zona "mais uma partida". Quanto tempo você consegue sobreviver?
+            </p>
+        </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+        <h2 class="section-title" style="margin-bottom: 20px;">Atravesse Todos os Mundos</h2>
+        <p style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 20px;">Cada voo uma nova experiência com
+            cenários imersivos</p>
+
+        <div class="gallery-grid">
+            <div class="screenshot-card">
+                <img src="screenshots/smartphone/1_forest.jpg" alt="Cenário de Floresta" class="screenshot-img"
+                    loading="lazy">
+                <div class="screenshot-overlay">
+                    <div class="screenshot-title">A Floresta</div>
+                    <p>O início calmo. Árvores imponentes escondem desafios inesperados.</p>
+                </div>
+            </div>
+            <div class="screenshot-card">
+                <img src="screenshots/smartphone/2_sunset.jpg" alt="Pôr do Sol" class="screenshot-img" loading="lazy">
+                <div class="screenshot-overlay">
+                    <div class="screenshot-title">Pôr do Sol</div>
+                    <p>O céu pega fogo! Não se distraia com a beleza deste cenário alaranjado.</p>
+                </div>
+            </div>
+            <div class="screenshot-card">
+                <img src="screenshots/smartphone/3_night.jpg" alt="Noite Estrelada" class="screenshot-img"
+                    loading="lazy">
+                <div class="screenshot-overlay">
+                    <div class="screenshot-title">Sombra da Noite</div>
+                    <p>Voe com pouca luz e seja guiado apenas pelo seu instinto.</p>
+                </div>
+            </div>
+            <div class="screenshot-card">
+                <img src="screenshots/smartphone/4_cyber.jpg" alt="Modo Cyber" class="screenshot-img" loading="lazy">
+                <div class="screenshot-overlay">
+                    <div class="screenshot-title">Cyber Neon</div>
+                    <p>A velocidade máxima! Um ambiente de puro neon e adrenalina total.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="download">
+        <h2 style="color: var(--text-light); margin-bottom: 30px; font-size: 2.5rem;">Assuma o Controle</h2>
+        <a href="https://play.google.com/store/apps/details?id=br.com.devoluapp.tucanoaventura"
+            class="download-btn">Baixe na Google Play Store</a>
+
+        <div class="footer-links">
+            <a href="privacy_policy.html">Política de Privacidade</a>
+            <a href="#">Termos de Uso</a>
+            <a href="mailto:contato@devoluapp.com.br">Suporte ou Contato</a>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 DevoluApp. Todos os direitos reservados.
+        </div>
+    </footer>
+
+</body>
+
+</html>
